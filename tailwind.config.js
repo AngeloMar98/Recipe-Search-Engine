@@ -47,5 +47,5 @@ module.exports = {
       desktop: "1280px",
     },
   },
-  plugins: [require("flowbite")],
+  plugins: [require("flowbite/plugin")],
 };

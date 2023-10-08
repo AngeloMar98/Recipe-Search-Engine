@@ -50,10 +50,6 @@ RESOURCES FOR THE STYLING.
 
 */
 
-// FAV MENU
-
-import "flowbite";
-
 const btnOpenFavsMenu: HTMLElement | null = document.querySelector(
   ".open-favorite-menu_btn"
 );
