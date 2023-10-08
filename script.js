@@ -71,7 +71,9 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
 };
 var _App_favoriteRecipes, _App_resultsRecipe;
+Object.defineProperty(exports, "__esModule", { value: true });
 // FAV MENU
+require("flowbite");
 const btnOpenFavsMenu = document.querySelector(".open-favorite-menu_btn");
 const btnCloseFavsMenu = document.querySelector(".close-favorite-menu_btn");
 const favsMenu = document.querySelector(".favorite-menu");
