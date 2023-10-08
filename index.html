@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="node_modules/flowbite/dist/flowbite.min.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/x-icon" href="/images/icons/favicon.ico" />
+    <link href="style.css" rel="stylesheet" />
+    <script src="script.js" defer></script>
+    <title>Recipe Search Engine by Angelo</title>
+  </head>
+  <body
+    class="font-default font-normal bg-custom-paleGray grid grid-cols-4 relative overflow-x-hidden"
+  >
+    <aside
+      id="default-sidebar"
+      class="col-span-1 h-screen bg-custom-darkGreen bg-[url(images/bakery_bg.png)] bg-cover bg-repeat bg-right-top sticky top-0 left-0 bottom-0"
+      aria-label="Sidebar"
+    >
+      <div class="h-full px-5 py-4 overflow-y-auto">
+        <h2 class="text-custom-paleGray text-2xl mb-6">Filters</h2>
+        <hr class="border-t border-custom-paleGreen mb-6" />
+        <ul class="space-y-3 font-medium flex flex-col items-center">
+          <li id="cuisine">
+            <button
+              id="dropdownCuisineHoverButton"
+              data-dropdown-toggle="dropdownCuisineHover"
+              class="font-medium rounded-lg text-sm px-5 py-2.5 text-center items-center bg-custom-green text-custom-paleGray flex flex-row shadow-greenDropMenu w-32 tablet:w-48"
+              type="button"
+            >
+              Cuisine
+              <svg
+                class="w-2.5 h-2.5 ml-auto"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 10 6"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m1 1 4 4 4-4"
+                />
+              </svg>
+            </button>
+            <!-- Dropdown menu -->
+            <div
+              id="dropdownCuisineHover"
+              class="z-10 hidden rounded-lg bg-custom-paleGreen text-custom-paleGray w-32 tablet:w-48"
+            >
+              <ul
+                class="py-2 space-y-1 text-sm ul_cuisine"
+                aria-labelledby="dropdownCuisineHoverButton"
+              >
+                <li class="li_cuisine hover:bg-custom-lighterPaleGreen">
+                  <div class="flex items-center p-2 rounded">
+                    <input
+                      id="cuisine-default-radio-1"
+                      type="radio"
+                      value=""
+                      name="cuisine-default-radio"
+                      data-cuisine="italian"
+                      class="w-4 h-4 bg-gray-100 border-gray-300 hover:cursor-pointer cuisine-checkbox accent-custom-greenx"
+                    />
+                    <label
+                      for="cuisine-default-radio-1"
+                      class="w-full ml-2 text-sm font-medium rounded hover:cursor-pointer"
+                      >Italian</label
+                    >
+                  </div>
+                </li>
+                <li class="li_cuisine hover:bg-custom-lighterPaleGreen">
+                  <div class="flex items-center p-2 rounded">
+                    <input
+                      id="cuisine-default-radio-2"
+                      type="radio"
+                      value=""
+                      name="cuisine-default-radio"
+                      data-cuisine="asian"
+                      class="w-4 h-4 bg-gray-100 border-gray-300 hover:cursor-pointer cuisine-checkbox accent-custom-greenx"
+                    />
+                    <label
+                      for="cuisine-default-radio-2"
+                      class="w-full ml-2 text-sm font-medium rounded hover:cursor-pointer"
+                      >Asian</label
+                    >
+                  </div>
+                </li>
+                <li class="li_cuisine hover:bg-custom-lighterPaleGreen">
+                  <div class="flex items-center p-2 rounded">
+                    <input
+                      id="cuisine-default-radio-3"
+                      type="radio"
+                      value=""
+                      name="cuisine-default-radio"
+                      data-cuisine="chinese"
+                      class="w-4 h-4 bg-gray-100 border-gray-300 hover:cursor-pointer cuisine-checkbox accent-custom-greenx"
+                    />
+                    <label
+                      for="cuisine-default-radio-3"
+                      class="w-full ml-2 text-sm font-medium rounded hover:cursor-pointer"
+                      >Chinese</label
+                    >
+                  </div>
+                </li>
+                <li class="li_cuisine hover:bg-custom-lighterPaleGreen">
+                  <div class="flex items-center p-2 rounded">
+                    <input
+                      id="cuisine-default-radio-4"
+                      type="radio"
+                      value=""
+                      name="cuisine-default-radio"
+                      data-cuisine="spanish"
+                      class="w-4 h-4 bg-gray-100 border-gray-300 hover:cursor-pointer cuisine-checkbox accent-custom-greenx"
+                    />
+                    <label
+                      for="cuisine-default-radio-4"
+                      class="w-full ml-2 text-sm font-medium rounded hover:cursor-pointer"
+                      >Spanish</label
+                    >
+                  </div>
+                </li>
+                <li class="li_cuisine hover:bg-custom-lighterPaleGreen">
+                  <div class="flex items-center p-2 rounded">
+                    <input
+                      id="cuisine-default-radio-5"
+                      type="radio"
+                      value=""
+                      name="cuisine-default-radio"
+                      data-cuisine="thai"
+                      class="w-4 h-4 bg-gray-100 border-gray-300 hover:cursor-pointer cuisine-checkbox accent-custom-greenx"
+                    />
+                    <label
+                      for="cuisine-default-radio-5"
+                      class="w-full ml-2 text-sm font-medium rounded hover:cursor-pointer"
+                      >Thai</label
+                    >
+                  </div>
+                </li>
+                <li class="li_cuisine hover:bg-custom-lighterPaleGreen">
+                  <div class="flex items-center p-2 rounded">
+                    <input
+                      id="cuisine-default-radio-6"
+                      type="radio"
+                      value=""
+                      name="cuisine-default-radio"
+                      data-cuisine="french"
+                      class="w-4 h-4 bg-gray-100 border-gray-300 hover:cursor-pointer cuisine-checkbox accent-custom-greenx"
+                    />
+                    <label
+                      for="cuisine-default-radio-6"
+                      class="w-full ml-2 text-sm font-medium rounded hover:cursor-pointer"
+                      >French</label
+                    >
+                  </div>
+                </li>
+                <li class="li_cuisine hover:bg-custom-lighterPaleGreen">
+                  <div class="flex items-center p-2 rounded">
+                    <input
+                      id="cuisine-default-radio-7"
+                      type="radio"
+                      value=""
+                      name="cuisine-default-radio"
+                      data-cuisine="indian"
+                      class="w-4 h-4 bg-gray-100 border-gray-300 hover:cursor-pointer cuisine-checkbox accent-custom-greenx"
+                    />
+                    <label
+                      for="cuisine-default-radio-7"
+                      class="w-full ml-2 text-sm font-medium rounded hover:cursor-pointer"
+                      >Indian</label
+                    >
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li id="course">
+            <button
+              id="dropdownCourseHoverButton"
+              data-dropdown-toggle="dropdownCourseHover"
+              class="font-medium rounded-lg text-sm px-5 py-2.5 text-center items-center bg-custom-green text-custom-paleGray w-32 tablet:w-48 flex flex-row shadow-greenDropMenu"
+              type="button"
+            >
+              Course
+              <svg
+                class="w-2.5 h-2.5 ml-auto"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 10 6"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m1 1 4 4 4-4"
+                />
+              </svg>
+            </button>
+            <!-- Dropdown menu -->
+            <div
+              id="dropdownCourseHover"
+              class="z-10 hidden w-32 tablet:w-48 rounded-lg bg-custom-paleGreen text-custom-paleGray"
+            >
+              <ul
+                class="py-2 space-y-1 text-sm ul_course"
+                aria-labelledby="dropdownCourseHoverButton"
+              >
+                <li class="li_course hover:bg-custom-lighterPaleGreen">
+                  <div class="flex items-center p-2 rounded">
+                    <input
+                      id="course-default-radio-1"
+                      type="radio"
+                      value=""
+                      name="default-radio"
+                      data-course="main_course"
+                      class="w-4 h-4 bg-gray-100 border-gray-300 hover:cursor-pointer course-checkbox accent-custom-green"
+                    />
+                    <label
+                      for="course-default-radio-1"
+                      class="w-full ml-2 text-sm font-medium rounded hover:cursor-pointer"
+                      >Main Course</label
+                    >
+                  </div>
+                </li>
+                <li class="li_course hover:bg-custom-lighterPaleGreen">
+                  <div class="flex items-center p-2 rounded">
+                    <input
+                      id="course-default-radio-2"
+                      type="radio"
+                      value=""
+                      name="default-radio"
+                      data-course="side_dish"
+                      class="w-4 h-4 bg-gray-100 border-gray-300 hover:cursor-pointer course-checkbox accent-custom-green"
+                    />
+                    <label
+                      for="course-default-radio-2"
+                      class="w-full ml-2 text-sm font-medium rounded hover:cursor-pointer"
+                      >Side Dish</label
+                    >
+                  </div>
+                </li>
+                <li class="li_course hover:bg-custom-lighterPaleGreen">
+                  <div class="flex items-center p-2 rounded">
+                    <input
+                      id="course-default-radio-3"
+                      type="radio"
+                      value=""
+                      name="default-radio"
+                      data-course="breakfast"
+                      class="w-4 h-4 bg-gray-100 border-gray-300 hover:cursor-pointer course-checkbox accent-custom-green"
+                    />
+                    <label
+                      for="course-default-radio-3"
+                      class="w-full ml-2 text-sm font-medium rounded hover:cursor-pointer"
+                      >Breakfast</label
+                    >
+                  </div>
+                </li>
+                <li class="li_course hover:bg-custom-lighterPaleGreen">
+                  <div class="flex items-center p-2 rounded">
+                    <input
+                      id="course-default-radio-4"
+                      type="radio"
+                      value=""
+                      name="default-radio"
+                      data-course="dessert"
+                      class="w-4 h-4 bg-gray-100 border-gray-300 hover:cursor-pointer course-checkbox accent-custom-green"
+                    />
+                    <label
+                      for="course-default-radio-4"
+                      class="w-full ml-2 text-sm font-medium rounded hover:cursor-pointer"
+                      >Dessert</label
+                    >
+                  </div>
+                </li>
+                <li class="li_course hover:bg-custom-lighterPaleGreen">
+                  <div class="flex items-center p-2 rounded">
+                    <input
+                      id="course-default-radio-5"
+                      type="radio"
+                      value=""
+                      name="default-radio"
+                      data-course="appetizer"
+                      class="w-4 h-4 bg-gray-100 border-gray-300 hover:cursor-pointer course-checkbox accent-custom-green"
+                    />
+                    <label
+                      for="course-default-radio-5"
+                      class="w-full ml-2 text-sm font-medium rounded hover:cursor-pointer"
+                      >Appetizer</label
+                    >
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li id="diet">
+            <button
+              id="dropdownDietHoverButton"
+              data-dropdown-toggle="dropdownDietHover"
+              class="font-medium rounded-lg text-sm px-5 py-2.5 text-center items-center bg-custom-green text-custom-paleGray w-32 tablet:w-48 flex flex-row shadow-greenDropMenu"
+              type="button"
+            >
+              Diet
+              <svg
+                class="w-2.5 h-2.5 ml-auto"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 10 6"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m1 1 4 4 4-4"
+                />
+              </svg>
+            </button>
+            <div
+              id="dropdownDietHover"
+              class="z-10 hidden w-32 tablet:w-48 rounded-lg bg-custom-paleGreen text-custom-paleGray"
+            >
+              <ul
+                class="py-2 space-y-1 text-sm ul_diet"
+                aria-labelledby="dropdownDietHoverButton"
+              >
+                <li class="li_diet hover:bg-custom-lighterPaleGreen">
+                  <div class="flex items-center p-2 rounded">
+                    <input
+                      id="diet-checkbox-item-1"
+                      type="checkbox"
+                      value=""
+                      data-diet="vegetarian"
+                      class="rounded w-4 h-4 accent-custom-green"
+                    />
+                    <label
+                      for="diet-checkbox-item-1"
+                      accent-custom-green
+                      class="w-full ml-2 text-sm font-medium rounded"
+                      >Vegetarian</label
+                    >
+                  </div>
+                </li>
+                <li class="li_diet hover:bg-custom-lighterPaleGreen">
+                  <div class="flex items-center p-2 rounded">
+                    <input
+                      id="diet-checkbox-item-2"
+                      type="checkbox"
+                      value=""
+                      data-diet="vegan"
+                      class="rounded w-4 h-4 accent-custom-green"
+                    />
+                    <label
+                      for="diet-checkbox-item-2"
+                      accent-custom-green
+                      class="w-full ml-2 text-sm font-medium rounded"
+                      >Vegan</label
+                    >
+                  </div>
+                </li>
+                <li class="li_diet hover:bg-custom-lighterPaleGreen">
+                  <div class="flex items-center p-2 rounded">
+                    <input
+                      id="diet-checkbox-item-3"
+                      type="checkbox"
+                      value=""
+                      data-diet="pescetarian"
+                      class="rounded w-4 h-4 accent-custom-green"
+                    />
+                    <label
+                      for="diet-checkbox-item-3"
+                      accent-custom-green
+                      class="w-full ml-2 text-sm font-medium rounded"
+                      >Pescetarian</label
+                    >
+                  </div>
+                </li>
+                <li class="li_diet hover:bg-custom-lighterPaleGreen">
+                  <div class="flex items-center p-2 rounded">
+                    <input
+                      id="diet-checkbox-item-4"
+                      type="checkbox"
+                      value=""
+                      data-diet="ketogenic"
+                      class="rounded w-4 h-4 accent-custom-green"
+                    />
+                    <label
+                      for="diet-checkbox-item-4"
+                      accent-custom-green
+                      class="w-full ml-2 text-sm font-medium rounded"
+                      >Ketogenic</label
+                    >
+                  </div>
+                </li>
+                <li class="li_diet hover:bg-custom-lighterPaleGreen">
+                  <div class="flex items-center p-2 rounded">
+                    <input
+                      id="diet-checkbox-item-5"
+                      type="checkbox"
+                      value=""
+                      data-diet="paleo"
+                      class="rounded w-4 h-4 accent-custom-green"
+                    />
+                    <label
+                      for="diet-checkbox-item-5"
+                      accent-custom-green
+                      class="w-full ml-2 text-sm font-medium rounded"
+                      >Paleo</label
+                    >
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li id="intolerances">
+            <button
+              id="dropdownIntolHoverButton"
+              data-dropdown-toggle="dropdownIntolHover"
+              class="font-medium rounded-lg text-sm px-5 py-2.5 text-center items-center bg-custom-green text-custom-paleGray w-32 tablet:w-48 flex flex-row shadow-greenDropMenu"
+              type="button"
+            >
+              Intolerances
+              <svg
+                class="w-2.5 h-2.5 ml-auto"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 10 6"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m1 1 4 4 4-4"
+                />
+              </svg>
+            </button>
+            <div
+              id="dropdownIntolHover"
+              class="z-10 hidden w-32 tablet:w-48 rounded-lg bg-custom-paleGreen text-custom-paleGray"
+            >
+              <ul
+                class="py-2 space-y-1 text-sm ul_intol"
+                aria-labelledby="dropdownDietHoverButton"
+              >
+                <li class="li_intol hover:bg-custom-lighterPaleGreen">
+                  <div class="flex items-center p-2 rounded">
+                    <input
+                      id="intol-checkbox-item-1"
+                      type="checkbox"
+                      value=""
+                      data-intol="dairy"
+                      class="rounded w-4 h-4 accent-custom-green"
+                    />
+                    <label
+                      for="intol-checkbox-item-1"
+                      accent-custom-green
+                      class="w-full ml-2 text-sm font-medium rounded"
+                      >Dairy</label
+                    >
+                  </div>
+                </li>
+                <li class="li_intol hover:bg-custom-lighterPaleGreen">
+                  <div class="flex items-center p-2 rounded">
+                    <input
+                      id="intol-checkbox-item-2"
+                      type="checkbox"
+                      value=""
+                      data-intol="egg"
+                      class="rounded w-4 h-4 accent-custom-green"
+                    />
+                    <label
+                      for="intol-checkbox-item-2"
+                      accent-custom-green
+                      class="w-full ml-2 text-sm font-medium rounded"
+                      >Egg</label
+                    >
+                  </div>
+                </li>
+                <li class="li_intol hover:bg-custom-lighterPaleGreen">
+                  <div class="flex items-center p-2 rounded">
+                    <input
+                      id="intol-checkbox-item-3"
+                      type="checkbox"
+                      value=""
+                      data-intol="tree_nut"
+                      class="rounded w-4 h-4 accent-custom-green"
+                    />
+                    <label
+                      for="intol-checkbox-item-3"
+                      accent-custom-green
+                      class="w-full ml-2 text-sm font-medium rounded"
+                      >Tree nut</label
+                    >
+                  </div>
+                </li>
+                <li class="li_intol hover:bg-custom-lighterPaleGreen">
+                  <div class="flex items-center p-2 rounded">
+                    <input
+                      id="intol-checkbox-item-4"
+                      type="checkbox"
+                      value=""
+                      data-intol="peanut"
+                      class="rounded w-4 h-4 accent-custom-green"
+                    />
+                    <label
+                      for="intol-checkbox-item-4"
+                      accent-custom-green
+                      class="w-full ml-2 text-sm font-medium rounded"
+                      >Peanut</label
+                    >
+                  </div>
+                </li>
+                <li class="li_intol hover:bg-custom-lighterPaleGreen">
+                  <div class="flex items-center p-2 rounded">
+                    <input
+                      id="intol-checkbox-item-5"
+                      type="checkbox"
+                      value=""
+                      data-intol="seafood"
+                      class="rounded w-4 h-4 accent-custom-green"
+                    />
+                    <label
+                      for="intol-checkbox-item-5"
+                      accent-custom-green
+                      class="w-full ml-2 text-sm font-medium rounded"
+                      >Seafood</label
+                    >
+                  </div>
+                </li>
+                <li class="li_intol hover:bg-custom-lighterPaleGreen">
+                  <div class="flex items-center p-2 rounded">
+                    <input
+                      id="intol-checkbox-item-6"
+                      type="checkbox"
+                      value=""
+                      data-intol="gluten"
+                      class="rounded w-4 h-4 accent-custom-green"
+                    />
+                    <label
+                      for="intol-checkbox-item-6"
+                      accent-custom-green
+                      class="w-full ml-2 text-sm font-medium rounded"
+                      >Gluten</label
+                    >
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li id="ingredients">
+            <button
+              id="dropdownIngredientsHoverButton"
+              data-dropdown-toggle="dropdownIngredientsHover"
+              class="font-medium rounded-lg text-sm px-5 py-2.5 text-center items-center bg-custom-green text-custom-paleGray w-32 tablet:w-48 flex flex-row shadow-greenDropMenu"
+              type="button"
+            >
+              Ingredients
+              <svg
+                class="w-2.5 h-2.5 ml-auto"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 10 6"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m1 1 4 4 4-4"
+                />
+              </svg>
+            </button>
+            <div
+              id="dropdownIngredientsHover"
+              class="scrollbar overflow-y-scroll h-[250px] z-10 hidden w-32 tablet:w-48 rounded-lg bg-custom-paleGreen text-custom-paleGray"
+            >
+              <ul
+                class="py-2 space-y-1 text-sm ul_ingredients"
+                aria-labelledby="dropdownDietHoverButton "
+              >
+                <li class="li_ingredients hover:bg-custom-lighterPaleGreen">
+                  <div class="flex items-center p-2 rounded">
+                    <input
+                      id="ingredients-checkbox-item-1"
+                      type="checkbox"
+                      value=""
+                      data-ingredients="eggs"
+                      class="rounded w-4 h-4 accent-custom-green"
+                    />
+                    <label
+                      for="ingredients-checkbox-item-1"
+                      accent-custom-green
+                      class="w-full ml-2 text-sm font-medium rounded"
+                      >Eggs</label
+                    >
+                  </div>
+                </li>
+                <li class="li_ingredients hover:bg-custom-lighterPaleGreen">
+                  <div class="flex items-center p-2 rounded">
+                    <input
+                      id="ingredients-checkbox-item-2"
+                      type="checkbox"
+                      value=""
+                      data-ingredients="tomato"
+                      class="rounded w-4 h-4 accent-custom-green"
+                    />
+                    <label
+                      for="ingredients-checkbox-item-2"
+                      accent-custom-green
+                      class="w-full ml-2 text-sm font-medium rounded"
+                      >Tomato</label
+                    >
+                  </div>
+                </li>
+                <li class="li_ingredients hover:bg-custom-lighterPaleGreen">
+                  <div class="flex items-center p-2 rounded">
+                    <input
+                      id="ingredients-checkbox-item-3"
+                      type="checkbox"
+                      value=""
+                      data-ingredients="olive_oil"
+                      class="rounded w-4 h-4 accent-custom-green"
+                    />
+                    <label
+                      for="ingredients-checkbox-item-3"
+                      accent-custom-green
+                      class="w-full ml-2 text-sm font-medium rounded"
+                      >Olive oil</label
+                    >
+                  </div>
+                </li>
+                <li class="li_ingredients hover:bg-custom-lighterPaleGreen">
+                  <div class="flex items-center p-2 rounded">
+                    <input
+                      id="ingredients-checkbox-item-4"
+                      type="checkbox"
+                      value=""
+                      data-ingredients="garlic"
+                      class="rounded w-4 h-4 accent-custom-green"
+                    />
+                    <label
+                      for="ingredients-checkbox-item-4"
+                      accent-custom-green
+                      class="w-full ml-2 text-sm font-medium rounded"
+                      >Garlic</label
+                    >
+                  </div>
+                </li>
+                <li class="li_ingredients hover:bg-custom-lighterPaleGreen">
+                  <div class="flex items-center p-2 rounded">
+                    <input
+                      id="ingredients-checkbox-item-5"
+                      type="checkbox"
+                      value=""
+                      data-ingredients="rice"
+                      class="rounded w-4 h-4 accent-custom-green"
+                    />
+                    <label
+                      for="ingredients-checkbox-item-5"
+                      accent-custom-green
+                      class="w-full ml-2 text-sm font-medium rounded"
+                      >Rice</label
+                    >
+                  </div>
+                </li>
+                <li class="li_ingredients hover:bg-custom-lighterPaleGreen">
+                  <div class="flex items-center p-2 rounded">
+                    <input
+                      id="ingredients-checkbox-item-6"
+                      type="checkbox"
+                      value=""
+                      data-ingredients="oregano"
+                      class="rounded w-4 h-4 accent-custom-green"
+                    />
+                    <label
+                      for="ingredients-checkbox-item-6"
+                      accent-custom-green
+                      class="w-full ml-2 text-sm font-medium rounded"
+                      >Oregano</label
+                    >
+                  </div>
+                </li>
+                <li class="li_ingredients hover:bg-custom-lighterPaleGreen">
+                  <div class="flex items-center p-2 rounded">
+                    <input
+                      id="ingredients-checkbox-item-7"
+                      type="checkbox"
+                      value=""
+                      data-ingredients="onions"
+                      class="rounded w-4 h-4 accent-custom-green"
+                    />
+                    <label
+                      for="ingredients-checkbox-item-7"
+                      accent-custom-green
+                      class="w-full ml-2 text-sm font-medium rounded"
+                      >Onions</label
+                    >
+                  </div>
+                </li>
+                <li class="li_ingredients hover:bg-custom-lighterPaleGreen">
+                  <div class="flex items-center p-2 rounded">
+                    <input
+                      id="ingredients-checkbox-item-8"
+                      type="checkbox"
+                      value=""
+                      data-ingredients="sugar"
+                      class="rounded w-4 h-4 accent-custom-green"
+                    />
+                    <label
+                      for="ingredients-checkbox-item-8"
+                      accent-custom-green
+                      class="w-full ml-2 text-sm font-medium rounded"
+                      >Sugar</label
+                    >
+                  </div>
+                </li>
+                <li class="li_ingredients hover:bg-custom-lighterPaleGreen">
+                  <div class="flex items-center p-2 rounded">
+                    <input
+                      id="ingredients-checkbox-item-9"
+                      type="checkbox"
+                      value=""
+                      data-ingredients="mushrooms"
+                      class="rounded w-4 h-4 accent-custom-green"
+                    />
+                    <label
+                      for="ingredients-checkbox-item-9"
+                      accent-custom-green
+                      class="w-full ml-2 text-sm font-medium rounded"
+                      >Mushrooms</label
+                    >
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="w-full col-span-3">
+      <div class="flex flex-row m-4">
+        <form class="search-form w-full max-w-[750px] mx-auto mt-4 px-4">
+          <label
+            for="default-search"
+            class="mb-2 text-sm font-medium text-gray-900 sr-only"
+            >Search</label
+          >
+          <div class="relative">
+            <div
+              class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+            >
+              <svg
+                class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                />
+              </svg>
+            </div>
+            <input
+              class="search-field block w-full p-4 pl-10 text-sm rounded-lg bg-custom-darkGreen text-custom-paleGray"
+              placeholder="Search recipe by name..."
+            />
+            <button
+              type="button"
+              class="search-button text-custom-paleGray absolute right-2.5 bottom-2.5 rounded-lg text-sm px-4 py-2 bg-custom-green hover:bg-custom-yellow hover:text-custom-darkGreen hover:shadow-buttonSearch font-bold transition-all duration-300"
+            >
+              Search
+            </button>
+          </div>
+        </form>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 256 256"
+          class="open-favorite-menu_btn rounded-full p-2 mt-5 mr-6 bg-custom-green w-[40px] h-[40px] transition-all duration-300 hover:cursor-pointer hover:shadow-openFavoriteMenu"
+        >
+          <rect width="256" height="256" fill="none" />
+          <line
+            x1="40"
+            y1="128"
+            x2="216"
+            y2="128"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="16"
+          />
+          <line
+            x1="40"
+            y1="64"
+            x2="216"
+            y2="64"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="16"
+          />
+          <line
+            x1="40"
+            y1="192"
+            x2="216"
+            y2="192"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="16"
+          />
+        </svg>
+      </div>
+      <div
+        class="results-grid grid grid-cols-2 laptop:grid-cols-3 desktop:grid-cols-4 w-full max-w-[600px] laptop:max-w-[800px] desktop:max-w-[1000px] mx-auto my-6 px-4 gap-x-2 gap-y-6"
+      ></div>
+    </main>
+
+    <menu
+      class="favorite-menu absolute right-0 top-0 h-screen w-[26rem] bg-custom-blue transition-all duration-300 bg-[url(images/ramen_bg.png)] bg-[length:300px_auto] bg-no-repeat bg-[bottom_-2rem_right_-5rem] shadow-favoriteMenu translate-sidemenu"
+    >
+      <div class="h-full px-5 py-4 pt-10">
+        <div class="mb-6 flex flex-row">
+          <h2 class="text-custom-paleGray text-2xl w-fit">Favorites</h2>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 256 256"
+            class="w-[30px] h-[30px] hover:cursor-pointer ml-auto mr-7 close-favorite-menu_btn"
+          >
+            <rect width="256" height="256" fill="none" />
+            <line
+              x1="200"
+              y1="56"
+              x2="56"
+              y2="200"
+              stroke="#DEE2E3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="16"
+            />
+            <line
+              x1="200"
+              y1="200"
+              x2="56"
+              y2="56"
+              stroke="#DEE2E3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="16"
+            />
+          </svg>
+        </div>
+        <hr class="border-t border-[#dee2e352] mb-6" />
+        <div
+          class="favorite-menu-inner overflow-y-scroll flex flex-col h-full p-4 gap-6 favorite-scrollbar pb-28"
+        ></div>
+      </div>
+    </menu>
+    <!-- 
+    <div
+      class="absolute top-[30px] left-0 bg-custom-lightGreen text-custom-paleGray w-[30px] p-2"
+    >
+      Delete
+    </div> -->
+    <div
+      class="recipe-window bg-custom-blue h-[90vh] w-[80vw] fixed top-6 right-1/2 translate-x-1/2 shadow-favoriteMenu rounded-lg grid grid-cols-10 text-white transition-opacity duration-300 opacity-0 hidden"
+    ></div>
+  </body>
+</html>
