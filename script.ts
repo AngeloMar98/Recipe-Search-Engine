@@ -218,9 +218,11 @@ class App {
     const reader = new FileReader();
 
     reader.readAsDataURL(imgBlob);
-    return (reader.onloadend = function () {
-      return reader.result;
-    });
+    return new Promise(
+      (reader.onloadend = function () {
+        return reader.result;
+      })
+    );
   }
 
   async _fetchRecipes() {
