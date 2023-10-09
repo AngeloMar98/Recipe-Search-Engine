@@ -169,6 +169,7 @@ class App {
             const reader = new FileReader();
             reader.readAsDataURL(imgBlob);
             reader.onloadend = function () {
+                console.log(reader.result);
                 return reader.result;
             };
         });

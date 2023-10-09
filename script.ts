@@ -219,6 +219,7 @@ class App {
 
     reader.readAsDataURL(imgBlob);
     reader.onloadend = function () {
+      console.log(reader.result);
       return reader.result;
     };
   }
