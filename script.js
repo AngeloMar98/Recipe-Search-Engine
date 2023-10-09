@@ -168,10 +168,9 @@ class App {
         return __awaiter(this, void 0, void 0, function* () {
             const reader = new FileReader();
             reader.readAsDataURL(imgBlob);
-            reader.onloadend = function () {
-                console.log(reader.result);
+            return (reader.onloadend = function () {
                 return reader.result;
-            };
+            });
         });
     }
     _fetchRecipes() {
