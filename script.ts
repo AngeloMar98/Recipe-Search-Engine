@@ -248,7 +248,7 @@ class App {
 
     var reader = new FileReader();
     var base64data;
-    reader.readAsDataURL(imgFile);
+    reader.readAsDataURL(imgBlob);
     reader.onloadend = function () {
       base64data = reader.result;
     };
