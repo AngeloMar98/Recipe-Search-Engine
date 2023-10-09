@@ -168,7 +168,7 @@ class App {
         return __awaiter(this, void 0, void 0, function* () {
             const APIKey = "apiKey=ccc74ec2303943b19a3fd0cf79ebccea";
             const searchSpecifics = this._generateURL();
-            const URL = `https://api.spoonacular.com/recipes/complexSearch?${searchSpecifics}instructionsRequired=true&addRecipeInformation=true&number=60&fillIngredients=true&${APIKey}`;
+            const URL = `https://api.spoonacular.com/recipes/complexSearch?${searchSpecifics}instructionsRequired=true&addRecipeInformation=true&number=5&fillIngredients=true&${APIKey}`;
             try {
                 const response = yield fetch(URL);
                 const results = (yield response.json()).results;
@@ -176,8 +176,10 @@ class App {
                     this._createRecipe(recipe);
                 });
                 resultsGrid.innerHTML = "";
+                console.log(`created all recipes`);
                 __classPrivateFieldGet(this, _App_resultsRecipe, "f").forEach((recipe) => {
                     this._displayRecipeCard(recipe);
+                    console.log(`displaying recipe`);
                 });
             }
             catch (error) {
@@ -189,9 +191,11 @@ class App {
     }
     _createRecipe(recipeObject) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log(`one more recipe`);
             const imgOriginalURL = yield fetch(recipeObject.image);
             const imgBlob = yield imgOriginalURL.blob();
-            const imgFile = window.URL.createObjectURL(imgBlob) + "";
+            const imgFile = URL.createObjectURL(imgBlob);
+            console.log(imgFile);
             const arrIngredients = [];
             // we format the ingredient object getting only the values we need and having an easier way to fetch them
             recipeObject.extendedIngredients.forEach((ingr) => {
@@ -299,6 +303,7 @@ class App {
     }
     _displayFavoriteCard(recipe) {
         var _a;
+        console.log(recipe.img);
         const favoriteCard = `<div
             data-id="${recipe.id}"
             class="recipe-card-favorite max-w-sm bg-custom-crimson rounded-lg w-full h-[140px] relative flex flex-row bg-[url(images/favorite_bg.png)] bg-cover "
@@ -629,39 +634,11 @@ class App {
     _setLocalStorage() {
         localStorage.setItem("favorites", JSON.stringify(__classPrivateFieldGet(this, _App_favoriteRecipes, "f")));
     }
+    _emptyAll() {
+        localStorage.removeItem("favorites");
+        __classPrivateFieldSet(this, _App_favoriteRecipes, [], "f");
+        __classPrivateFieldSet(this, _App_resultsRecipe, [], "f");
+    }
 }
 _App_favoriteRecipes = new WeakMap(), _App_resultsRecipe = new WeakMap();
-const i = {
-    name: "pomodoro",
-    unit: "spoon",
-    amount: 1,
-};
-const s = {
-    num: 1,
-    procedure: "First you cook the tomato",
-};
-const s2 = {
-    num: 2,
-    procedure: "Then you prepare the dough",
-};
-const s3 = {
-    num: 3,
-    procedure: "Kill your neighboor",
-};
-const r = {
-    id: 99999,
-    img: "images/marinara.jpg",
-    name: "Pizza marina",
-    summary: "The best pizza",
-    ingredients: [i],
-    time: 15,
-    steps: [s, s2, s3, s3, s3, s, s, s, s, s],
-};
 const a = new App();
-a._displayRecipeCard(r);
-a._displayRecipeCard(r);
-a._displayRecipeCard(r);
-a._displayRecipeCard(r);
-a._displayRecipeCard(r);
-a._displayRecipeCard(r);
-a._displayRecipeCard(r);

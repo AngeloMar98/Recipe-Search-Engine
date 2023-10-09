@@ -217,7 +217,7 @@ class App {
   async _fetchRecipes() {
     const APIKey = "apiKey=ccc74ec2303943b19a3fd0cf79ebccea";
     const searchSpecifics = this._generateURL();
-    const URL: string = `https://api.spoonacular.com/recipes/complexSearch?${searchSpecifics}instructionsRequired=true&addRecipeInformation=true&number=60&fillIngredients=true&${APIKey}`;
+    const URL: string = `https://api.spoonacular.com/recipes/complexSearch?${searchSpecifics}instructionsRequired=true&addRecipeInformation=true&number=5&fillIngredients=true&${APIKey}`;
 
     try {
       const response = await fetch(URL);
@@ -228,8 +228,10 @@ class App {
       });
       resultsGrid!.innerHTML = "";
 
+      console.log(`created all recipes`);
       this.#resultsRecipe.forEach((recipe) => {
         this._displayRecipeCard(recipe);
+        console.log(`displaying recipe`);
       });
     } catch (error) {
       let errorMessage = "Unknown error";
@@ -239,10 +241,12 @@ class App {
   }
 
   async _createRecipe(recipeObject: Keyable) {
+    console.log(`one more recipe`);
     const imgOriginalURL = await fetch(recipeObject.image);
     const imgBlob = await imgOriginalURL.blob();
-    const imgFile: string = window.URL.createObjectURL(imgBlob) + "";
+    const imgFile: any = URL.createObjectURL(imgBlob);
 
+    console.log(imgFile);
     const arrIngredients: Ingredient[] = [];
 
     // we format the ingredient object getting only the values we need and having an easier way to fetch them
@@ -362,6 +366,7 @@ class App {
   }
 
   _displayFavoriteCard(recipe: Recipe) {
+    console.log(recipe.img);
     const favoriteCard: string = `<div
             data-id="${recipe.id}"
             class="recipe-card-favorite max-w-sm bg-custom-crimson rounded-lg w-full h-[140px] relative flex flex-row bg-[url(images/favorite_bg.png)] bg-cover "
@@ -730,45 +735,12 @@ class App {
   _setLocalStorage() {
     localStorage.setItem("favorites", JSON.stringify(this.#favoriteRecipes));
   }
+
+  _emptyAll() {
+    localStorage.removeItem("favorites");
+    this.#favoriteRecipes = [];
+    this.#resultsRecipe = [];
+  }
 }
 
-const i: Ingredient = {
-  name: "pomodoro",
-  unit: "spoon",
-  amount: 1,
-};
-
-const s: Step = {
-  num: 1,
-  procedure: "First you cook the tomato",
-};
-
-const s2: Step = {
-  num: 2,
-  procedure: "Then you prepare the dough",
-};
-
-const s3: Step = {
-  num: 3,
-  procedure: "Kill your neighboor",
-};
-
-const r: Recipe = {
-  id: 99999,
-  img: "images/marinara.jpg",
-  name: "Pizza marina",
-  summary: "The best pizza",
-  ingredients: [i],
-  time: 15,
-  steps: [s, s2, s3, s3, s3, s, s, s, s, s],
-};
-
 const a = new App();
-
-a._displayRecipeCard(r);
-a._displayRecipeCard(r);
-a._displayRecipeCard(r);
-a._displayRecipeCard(r);
-a._displayRecipeCard(r);
-a._displayRecipeCard(r);
-a._displayRecipeCard(r);
