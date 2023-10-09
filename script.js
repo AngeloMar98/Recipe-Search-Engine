@@ -177,56 +177,34 @@ class App {
             const searchSpecifics = this._generateURL();
             const URL = `https://api.spoonacular.com/recipes/complexSearch?${searchSpecifics}instructionsRequired=true&addRecipeInformation=true&number=1&fillIngredients=true&${APIKey}`;
             try {
-                console.log(`1`);
                 const response = yield fetch(URL);
-                console.log(`2`);
                 const data = yield response.json();
-                console.log(`3`);
-                console.log(`3`);
-                console.log(`3`);
-                console.log(`3`);
-                console.log(`3`);
-                console.log(`3`);
-                console.log(`3`);
-                console.log(`3`);
-                console.log(`3`);
-                console.log(`3`);
                 const results = data.results;
+                if (results == undefined)
+                    throw new Error("couldn't fetch the results from the API");
+                // empty grid if a new search starts
                 resultsGrid.innerHTML = "";
-                console.log(`4`);
-                console.log(`4`);
-                console.log(`4`);
-                console.log(`4`);
-                console.log(`4`);
-                console.log(`4`);
-                console.log(`4`);
-                console.log(`4`);
-                console.log(`4`);
-                console.log(`4`);
-                console.log(`4`);
-                console.log(`4`);
-                console.log(`4`);
-                yield this._fillResultsArray(results);
-                console.log(`4`);
-                __classPrivateFieldGet(this, _App_resultsRecipe, "f").forEach((recipe) => {
-                    this._displayRecipeCard(recipe);
+                // fill then array with recipe objects, once it's filled you display each recipe card in the grid
+                this._fillResultsArray(results).then(() => {
+                    __classPrivateFieldGet(this, _App_resultsRecipe, "f").forEach((recipe) => {
+                        this._displayRecipeCard(recipe);
+                    });
                 });
             }
             catch (error) {
                 let errorMessage = "Unknown error";
                 if (error instanceof Error)
                     errorMessage = error.message;
+                console.error(errorMessage);
             }
         });
     }
     _fillResultsArray(results) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return new Promise((resolve) => {
-                results.forEach((recipe) => __awaiter(this, void 0, void 0, function* () {
-                    yield this._createRecipe(recipe);
-                }));
-                resolve;
+        return new Promise((resolve) => {
+            results.forEach((recipe) => {
+                this._createRecipe(recipe);
             });
+            resolve;
         });
     }
     _createRecipe(recipeObject) {

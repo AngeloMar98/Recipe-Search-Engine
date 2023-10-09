@@ -229,55 +229,36 @@ class App {
     const URL: string = `https://api.spoonacular.com/recipes/complexSearch?${searchSpecifics}instructionsRequired=true&addRecipeInformation=true&number=1&fillIngredients=true&${APIKey}`;
 
     try {
-      console.log(`1`);
       const response = await fetch(URL);
-      console.log(`2`);
       const data = await response.json();
-      console.log(`3`);
-      console.log(`3`);
-      console.log(`3`);
-      console.log(`3`);
-      console.log(`3`);
-      console.log(`3`);
-      console.log(`3`);
-      console.log(`3`);
-      console.log(`3`);
-      console.log(`3`);
       const results: [] = data.results;
 
+      if (results == undefined)
+        throw new Error("couldn't fetch the results from the API");
+
+      // empty grid if a new search starts
       resultsGrid!.innerHTML = "";
 
-      console.log(`4`);
-      console.log(`4`);
-      console.log(`4`);
-      console.log(`4`);
-      console.log(`4`);
-      console.log(`4`);
-      console.log(`4`);
-      console.log(`4`);
-      console.log(`4`);
-      console.log(`4`);
-      console.log(`4`);
-      console.log(`4`);
-      console.log(`4`);
-      await this._fillResultsArray(results);
-      console.log(`4`);
-
-      this.#resultsRecipe.forEach((recipe) => {
-        this._displayRecipeCard(recipe);
+      // fill then array with recipe objects, once it's filled you display each recipe card in the grid
+      this._fillResultsArray(results).then(() => {
+        this.#resultsRecipe.forEach((recipe) => {
+          this._displayRecipeCard(recipe);
+        });
       });
     } catch (error) {
       let errorMessage = "Unknown error";
 
       if (error instanceof Error) errorMessage = error.message;
+      console.error(errorMessage);
     }
   }
 
-  async _fillResultsArray(results: []) {
+  _fillResultsArray(results: []) {
     return new Promise((resolve) => {
-      results.forEach(async (recipe: Keyable) => {
-        await this._createRecipe(recipe);
+      results.forEach((recipe: Keyable) => {
+        this._createRecipe(recipe);
       });
+
       resolve;
     });
   }
