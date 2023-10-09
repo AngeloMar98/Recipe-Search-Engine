@@ -246,7 +246,15 @@ class App {
     const imgBlob = await imgOriginalURL.blob();
     const imgFile: any = URL.createObjectURL(imgBlob);
 
-    console.log(imgFile);
+    var reader = new FileReader();
+    var base64data;
+    reader.readAsDataURL(imgFile);
+    reader.onloadend = function () {
+      base64data = reader.result;
+    };
+
+    console.log("base 64:" + base64data);
+
     const arrIngredients: Ingredient[] = [];
 
     // we format the ingredient object getting only the values we need and having an easier way to fetch them
@@ -366,7 +374,6 @@ class App {
   }
 
   _displayFavoriteCard(recipe: Recipe) {
-    console.log(recipe.img);
     const favoriteCard: string = `<div
             data-id="${recipe.id}"
             class="recipe-card-favorite max-w-sm bg-custom-crimson rounded-lg w-full h-[140px] relative flex flex-row bg-[url(images/favorite_bg.png)] bg-cover "
