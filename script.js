@@ -167,23 +167,23 @@ class App {
     _generateImgBase64(imgBlob) {
         const reader = new FileReader();
         reader.readAsDataURL(imgBlob);
-        return new Promise((resolve) => resolve((reader.onloadend = function () {
-            return reader.result;
-        })));
+        return new Promise((resolve) => {
+            reader.onload = resolve;
+        });
     }
     _fetchRecipes() {
         return __awaiter(this, void 0, void 0, function* () {
             const APIKey = "apiKey=ccc74ec2303943b19a3fd0cf79ebccea";
             const searchSpecifics = this._generateURL();
-            const URL = `https://api.spoonacular.com/recipes/complexSearch?${searchSpecifics}instructionsRequired=true&addRecipeInformation=true&number=5&fillIngredients=true&${APIKey}`;
+            const URL = `https://api.spoonacular.com/recipes/complexSearch?${searchSpecifics}instructionsRequired=true&addRecipeInformation=true&number=1&fillIngredients=true&${APIKey}`;
             try {
                 const response = yield fetch(URL);
                 const results = (yield response.json()).results;
                 results.forEach((recipe) => {
+                    console.log(recipe);
                     this._createRecipe(recipe);
                 });
                 resultsGrid.innerHTML = "";
-                console.log(`created all recipes`);
                 __classPrivateFieldGet(this, _App_resultsRecipe, "f").forEach((recipe) => {
                     this._displayRecipeCard(recipe);
                     console.log(`displaying recipe`);
@@ -203,20 +203,21 @@ class App {
             const imgBlob = yield imgOriginalURL.blob();
             console.log(`ooooo`);
             const imgFile = yield this._generateImgBase64(imgBlob);
-            console.log(imgFile);
+            console.dir(imgFile.explicitOriginalTarget.result);
             const arrIngredients = [];
             // we format the ingredient object getting only the values we need and having an easier way to fetch them
             recipeObject.extendedIngredients.forEach((ingr) => {
                 const newIngredient = {
                     name: ingr.nameClean,
                     amount: ingr.measures.metric.amount,
-                    unit: ingr.measures.metric.unitShort,
+                    unit: ingr.measures.metric.unitLong,
                 };
                 arrIngredients.push(newIngredient);
             });
             // for some reason the API has two kind of steps attribute, one is nested in analyzedInstructions, the other is not
             const arrSteps = [];
-            if (recipeObject.analyzedInstructions.steps == undefined) {
+            console.log(recipeObject.analyzedInstructions.steps);
+            if (recipeObject.analyzedInstructions.steps != undefined) {
                 recipeObject.analyzedInstructions.forEach((step) => {
                     const newStep = {
                         num: Number(step.number),
@@ -231,12 +232,13 @@ class App {
                         num: Number(step.number),
                         procedure: step.step,
                     };
+                    console.log(newStep);
                     arrSteps.push(newStep);
                 });
             }
             const recipe = {
                 id: recipeObject.id,
-                img: imgFile,
+                img: imgFile.explicitOriginalTarget.result,
                 summary: recipeObject.summary,
                 name: recipeObject.title,
                 time: recipeObject.readyInMinutes,
@@ -418,6 +420,7 @@ class App {
     }
     _fillRecipeWindow(recipe) {
         var _a, _b;
+        console.log(recipe);
         let ingredientsList = "";
         recipe.ingredients.forEach((ingredient) => {
             ingredientsList += `<li class="ingredients_li">
@@ -582,7 +585,7 @@ class App {
 
         <h2 class="text-2xl mb-3 text-custom-elegantGreen">Steps</h2>
 
-        <div class="overflow-y-scroll favorite-scrollbar h-[65vh]">
+        <div class="overflow-y-scroll favorite-scrollbar h-[45vh]">
           <ol class="relative border-l border-custom-paleGray mx-2">
                   ${stepsList}  
           </ol>
