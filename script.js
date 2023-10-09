@@ -165,13 +165,11 @@ class App {
     ${ingredients ? "includeIngredients=" + ingredients : ""}`;
     }
     _generateImgBase64(imgBlob) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const reader = new FileReader();
-            reader.readAsDataURL(imgBlob);
-            return new Promise((reader.onloadend = function () {
-                return reader.result;
-            }));
-        });
+        const reader = new FileReader();
+        reader.readAsDataURL(imgBlob);
+        return new Promise((resolve) => resolve((reader.onloadend = function () {
+            return reader.result;
+        })));
     }
     _fetchRecipes() {
         return __awaiter(this, void 0, void 0, function* () {

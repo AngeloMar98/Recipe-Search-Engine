@@ -214,14 +214,16 @@ class App {
     ${ingredients ? "includeIngredients=" + ingredients : ""}`;
   }
 
-  async _generateImgBase64(imgBlob: any) {
+  _generateImgBase64(imgBlob: any) {
     const reader = new FileReader();
 
     reader.readAsDataURL(imgBlob);
-    return new Promise(
-      (reader.onloadend = function () {
-        return reader.result;
-      })
+    return new Promise((resolve) =>
+      resolve(
+        (reader.onloadend = function () {
+          return reader.result;
+        })
+      )
     );
   }
 
