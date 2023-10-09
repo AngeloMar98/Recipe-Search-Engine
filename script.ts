@@ -137,7 +137,7 @@ interface Step {
 
 interface Recipe {
   id: number;
-  img: string;
+  img: any;
   name: string;
   summary: string;
   ingredients: Ingredient[];
