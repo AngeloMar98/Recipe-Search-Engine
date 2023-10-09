@@ -164,6 +164,15 @@ class App {
     ${intolerances ? "intolerances=" + intolerances : ""}
     ${ingredients ? "includeIngredients=" + ingredients : ""}`;
     }
+    _generateImgBase64(imgBlob) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const reader = new FileReader();
+            reader.readAsDataURL(imgBlob);
+            reader.onloadend = function () {
+                return reader.result;
+            };
+        });
+    }
     _fetchRecipes() {
         return __awaiter(this, void 0, void 0, function* () {
             const APIKey = "apiKey=ccc74ec2303943b19a3fd0cf79ebccea";
@@ -194,14 +203,8 @@ class App {
             console.log(`one more recipe`);
             const imgOriginalURL = yield fetch(recipeObject.image);
             const imgBlob = yield imgOriginalURL.blob();
-            const imgFile = URL.createObjectURL(imgBlob);
-            var reader = new FileReader();
-            var base64data;
-            reader.readAsDataURL(imgBlob);
-            reader.onloadend = function () {
-                base64data = reader.result;
-                console.log("base 64:" + base64data);
-            };
+            const imgFile = yield this._generateImgBase64(imgBlob);
+            console.log(imgFile);
             const arrIngredients = [];
             // we format the ingredient object getting only the values we need and having an easier way to fetch them
             recipeObject.extendedIngredients.forEach((ingr) => {

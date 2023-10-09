@@ -214,6 +214,15 @@ class App {
     ${ingredients ? "includeIngredients=" + ingredients : ""}`;
   }
 
+  async _generateImgBase64(imgBlob: any) {
+    const reader = new FileReader();
+
+    reader.readAsDataURL(imgBlob);
+    reader.onloadend = function () {
+      return reader.result;
+    };
+  }
+
   async _fetchRecipes() {
     const APIKey = "apiKey=ccc74ec2303943b19a3fd0cf79ebccea";
     const searchSpecifics = this._generateURL();
@@ -242,18 +251,12 @@ class App {
 
   async _createRecipe(recipeObject: Keyable) {
     console.log(`one more recipe`);
+
     const imgOriginalURL = await fetch(recipeObject.image);
     const imgBlob = await imgOriginalURL.blob();
-    const imgFile: any = URL.createObjectURL(imgBlob);
+    const imgFile = await this._generateImgBase64(imgBlob);
 
-    var reader = new FileReader();
-    var base64data;
-    reader.readAsDataURL(imgBlob);
-    reader.onloadend = function () {
-      base64data = reader.result;
-      console.log("base 64:" + base64data);
-    };
-
+    console.log(imgFile);
     const arrIngredients: Ingredient[] = [];
 
     // we format the ingredient object getting only the values we need and having an easier way to fetch them
