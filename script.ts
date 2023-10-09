@@ -229,18 +229,42 @@ class App {
     const URL: string = `https://api.spoonacular.com/recipes/complexSearch?${searchSpecifics}instructionsRequired=true&addRecipeInformation=true&number=1&fillIngredients=true&${APIKey}`;
 
     try {
+      console.log(`1`);
       const response = await fetch(URL);
-      const results = (await response.json()).results;
+      console.log(`2`);
+      const data = await response.json();
+      console.log(`3`);
+      console.log(`3`);
+      console.log(`3`);
+      console.log(`3`);
+      console.log(`3`);
+      console.log(`3`);
+      console.log(`3`);
+      console.log(`3`);
+      console.log(`3`);
+      console.log(`3`);
+      const results: [] = data.results;
 
-      results.forEach((recipe: Keyable) => {
-        console.log(recipe);
-        this._createRecipe(recipe);
-      });
       resultsGrid!.innerHTML = "";
+
+      console.log(`4`);
+      console.log(`4`);
+      console.log(`4`);
+      console.log(`4`);
+      console.log(`4`);
+      console.log(`4`);
+      console.log(`4`);
+      console.log(`4`);
+      console.log(`4`);
+      console.log(`4`);
+      console.log(`4`);
+      console.log(`4`);
+      console.log(`4`);
+      await this._fillResultsArray(results);
+      console.log(`4`);
 
       this.#resultsRecipe.forEach((recipe) => {
         this._displayRecipeCard(recipe);
-        console.log(`displaying recipe`);
       });
     } catch (error) {
       let errorMessage = "Unknown error";
@@ -249,66 +273,76 @@ class App {
     }
   }
 
-  async _createRecipe(recipeObject: Keyable) {
-    console.log(`one more recipe`);
-
-    const imgOriginalURL = await fetch(recipeObject.image);
-    const imgBlob = await imgOriginalURL.blob();
-    console.log(`ooooo`);
-    const imgFile: any = await this._generateImgBase64(imgBlob);
-
-    console.dir(imgFile.explicitOriginalTarget.result);
-    const arrIngredients: Ingredient[] = [];
-
-    // we format the ingredient object getting only the values we need and having an easier way to fetch them
-    recipeObject.extendedIngredients.forEach((ingr: any) => {
-      const newIngredient: Ingredient = {
-        name: ingr.nameClean,
-        amount: ingr.measures.metric.amount,
-        unit: ingr.measures.metric.unitLong,
-      };
-      arrIngredients.push(newIngredient);
+  async _fillResultsArray(results: []) {
+    return new Promise((resolve) => {
+      results.forEach(async (recipe: Keyable) => {
+        await this._createRecipe(recipe);
+      });
+      resolve;
     });
-
-    // for some reason the API has two kind of steps attribute, one is nested in analyzedInstructions, the other is not
-    const arrSteps: Step[] = [];
-
-    console.log(recipeObject.analyzedInstructions.steps);
-    if (recipeObject.analyzedInstructions.steps != undefined) {
-      recipeObject.analyzedInstructions.forEach((step: any) => {
-        const newStep: Step = {
-          num: Number(step.number),
-          procedure: step.step,
-        };
-
-        arrSteps.push(newStep);
-      });
-    } else {
-      recipeObject.analyzedInstructions[0].steps.forEach((step: any) => {
-        const newStep: Step = {
-          num: Number(step.number),
-          procedure: step.step,
-        };
-        console.log(newStep);
-        arrSteps.push(newStep);
-      });
-    }
-
-    const recipe: Recipe = {
-      id: recipeObject.id,
-      img: imgFile.explicitOriginalTarget.result,
-      summary: recipeObject.summary,
-      name: recipeObject.title,
-      time: recipeObject.readyInMinutes,
-      ingredients: arrIngredients,
-      steps: arrSteps,
-    };
-
-    // we push here so we don't have to have displaying and creation all in one function
-    this.#resultsRecipe.push(recipe);
   }
 
-  _displayRecipeCard(recipe: Recipe) {
+  async _createRecipe(recipeObject: Keyable) {
+    return new Promise(async (resolve) => {
+      const imgOriginalURL = await fetch(recipeObject.image);
+      const imgBlob = await imgOriginalURL.blob();
+
+      const imgFile: any = await this._generateImgBase64(imgBlob);
+
+      const arrIngredients: Ingredient[] = [];
+
+      // we format the ingredient object getting only the values we need and having an easier way to fetch them
+      recipeObject.extendedIngredients.forEach((ingr: any) => {
+        const newIngredient: Ingredient = {
+          name: ingr.nameClean,
+          amount: ingr.measures.metric.amount,
+          unit: ingr.measures.metric.unitLong,
+        };
+        arrIngredients.push(newIngredient);
+      });
+
+      // for some reason the API has two kind of steps attribute, one is nested in analyzedInstructions, the other is not
+      const arrSteps: Step[] = [];
+
+      if (recipeObject.analyzedInstructions.steps != undefined) {
+        recipeObject.analyzedInstructions.forEach((step: any) => {
+          const newStep: Step = {
+            num: Number(step.number),
+            procedure: step.step,
+          };
+
+          arrSteps.push(newStep);
+        });
+      } else {
+        recipeObject.analyzedInstructions[0].steps.forEach((step: any) => {
+          const newStep: Step = {
+            num: Number(step.number),
+            procedure: step.step,
+          };
+
+          arrSteps.push(newStep);
+        });
+      }
+
+      const recipe: Recipe = {
+        id: recipeObject.id,
+        img: imgFile.explicitOriginalTarget.result,
+        summary: recipeObject.summary,
+        name: recipeObject.title,
+        time: recipeObject.readyInMinutes,
+        ingredients: arrIngredients,
+        steps: arrSteps,
+      };
+
+      // we push here so we don't have to have displaying and creation all in one function
+      this.#resultsRecipe.push(recipe);
+
+      resolve;
+    });
+  }
+
+  async _displayRecipeCard(recipe: Recipe) {
+    console.log(`got into displayRecipeCard`);
     const recipeCard: string = `
     <div data-id="${recipe.id}"
           class="recipe-card max-w-sm bg-custom-crimson rounded-lg w-[230px] h-[360px] relative border-2 border-custom-crimson hover:cursor-pointer shadow-recipeCard hover:-translate-y-1 hover:shadow-recipeCardHigher transition-all duration-150"
@@ -442,7 +476,7 @@ class App {
             </svg>
 
             <img
-              class="recipe-image-favorite rounded-t-lg object-cover h-full w-[130px]"
+              class="recipe-image-favorite rounded-t-lg object-cover h-[124px] w-[124px]"
               src="${recipe.img}"
               alt=""
             />
@@ -496,7 +530,6 @@ class App {
   }
 
   _fillRecipeWindow(recipe: Recipe) {
-    console.log(recipe);
     let ingredientsList: string = "";
     recipe.ingredients.forEach((ingredient) => {
       ingredientsList += `<li class="ingredients_li">
@@ -633,11 +666,11 @@ class App {
           </ul>
         </div>
       </div>
-      <div class="p-6 pt-9 col-span-6 relative">
+      <div class="p-6 pt-9 col-span-6 relative h-[90vh] flex flex-col">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 256 256"
-          class="close-recipe-window text-white absolute w-[40px] right-[30px] hover:cursor-pointer"
+          class="close-recipe-window text-white absolute w-[40px] top-[10px] right-[10px] hover:cursor-pointer"
         >
           <rect width="256" height="256" fill="none" />
           <line
@@ -661,13 +694,14 @@ class App {
             stroke-width="16"
           />
         </svg>
-        <h1 class="recipe-window-name text-4xl uppercase mb-3">
-          ${recipe.name}
-        </h1>
+        <div>
+            <h1 class="recipe-window-name text-4xl uppercase mb-3">
+              ${recipe.name}
+            </h1>
 
-        <h2 class="text-2xl mb-3 text-custom-elegantGreen">Steps</h2>
-
-        <div class="overflow-y-scroll favorite-scrollbar h-[45vh]">
+            <h2 class="text-2xl mb-3 text-custom-elegantGreen">Steps</h2>
+        </div>
+        <div class="overflow-y-scroll favorite-scrollbar flex-inital">
           <ol class="relative border-l border-custom-paleGray mx-2">
                   ${stepsList}  
           </ol>
