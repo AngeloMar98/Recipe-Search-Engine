@@ -200,8 +200,8 @@ class App {
             reader.readAsDataURL(imgBlob);
             reader.onloadend = function () {
                 base64data = reader.result;
+                console.log("base 64:" + base64data);
             };
-            console.log("base 64:" + base64data);
             const arrIngredients = [];
             // we format the ingredient object getting only the values we need and having an easier way to fetch them
             recipeObject.extendedIngredients.forEach((ingr) => {

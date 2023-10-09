@@ -251,9 +251,8 @@ class App {
     reader.readAsDataURL(imgBlob);
     reader.onloadend = function () {
       base64data = reader.result;
+      console.log("base 64:" + base64data);
     };
-
-    console.log("base 64:" + base64data);
 
     const arrIngredients: Ingredient[] = [];
 
