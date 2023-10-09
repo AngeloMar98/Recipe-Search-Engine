@@ -203,6 +203,7 @@ class App {
             console.log(`one more recipe`);
             const imgOriginalURL = yield fetch(recipeObject.image);
             const imgBlob = yield imgOriginalURL.blob();
+            console.log(`ooooo`);
             const imgFile = yield this._generateImgBase64(imgBlob);
             console.log(imgFile);
             const arrIngredients = [];

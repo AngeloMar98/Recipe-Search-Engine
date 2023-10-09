@@ -256,6 +256,7 @@ class App {
 
     const imgOriginalURL = await fetch(recipeObject.image);
     const imgBlob = await imgOriginalURL.blob();
+    console.log(`ooooo`);
     const imgFile = await this._generateImgBase64(imgBlob);
 
     console.log(imgFile);
