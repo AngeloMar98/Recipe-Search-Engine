@@ -186,7 +186,7 @@ const returnMultipleChoices = function (
 class App {
   #favoriteRecipes: Recipe[] = [];
   #resultsRecipe: Recipe[] = [];
-  size: number = 1;
+  size: number = 10;
   constructor() {
     btnSearch?.addEventListener("click", this._fetchRecipes.bind(this));
     searchField?.addEventListener("keypress", (e) => {
