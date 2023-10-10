@@ -144,8 +144,13 @@ class App {
     constructor() {
         _App_favoriteRecipes.set(this, []);
         _App_resultsRecipe.set(this, []);
-        this.size = 15;
+        this.size = 1;
         btnSearch === null || btnSearch === void 0 ? void 0 : btnSearch.addEventListener("click", this._fetchRecipes.bind(this));
+        searchField === null || searchField === void 0 ? void 0 : searchField.addEventListener("keypress", (e) => {
+            e.preventDefault();
+            if (e.key === "Enter")
+                this._fetchRecipes();
+        });
         this._getLocalStorage();
     }
     _alreadyFavorited(recipe) {

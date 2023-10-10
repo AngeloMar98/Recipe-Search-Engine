@@ -186,9 +186,13 @@ const returnMultipleChoices = function (
 class App {
   #favoriteRecipes: Recipe[] = [];
   #resultsRecipe: Recipe[] = [];
-  size: number = 15;
+  size: number = 1;
   constructor() {
     btnSearch?.addEventListener("click", this._fetchRecipes.bind(this));
+    searchField?.addEventListener("keypress", (e) => {
+      e.preventDefault();
+      if (e.key === "Enter") this._fetchRecipes();
+    });
     this._getLocalStorage();
   }
 
