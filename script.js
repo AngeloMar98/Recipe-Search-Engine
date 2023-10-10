@@ -373,7 +373,7 @@ class App {
             </svg>
 
             <img
-              class="recipe-image-favorite rounded-t-lg object-cover w-[124px]"
+              class="recipe-image-favorite rounded-l-lg object-cover w-[124px]"
               src="${recipe.img}"
               alt=""
             />
