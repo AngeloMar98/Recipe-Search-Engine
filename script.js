@@ -395,7 +395,7 @@ class App {
       <div class="delete-menu absolute              
                 bg-custom-lightCrimson
                 text-custom-paleGray w-[75px]
-                  text-center py-2 hover:cursor-pointer"
+                  text-center py-2 hover:cursor-pointer z-40"
                    style="${positions}">
                   Delete
     </div>`;

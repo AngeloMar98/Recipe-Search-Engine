@@ -464,7 +464,7 @@ class App {
       <div class="delete-menu absolute              
                 bg-custom-lightCrimson
                 text-custom-paleGray w-[75px]
-                  text-center py-2 hover:cursor-pointer"
+                  text-center py-2 hover:cursor-pointer z-40"
                    style="${positions}">
                   Delete
     </div>`;
@@ -702,6 +702,7 @@ class App {
       }
     });
   }
+
   _toggleToFavorites(recipe: Recipe) {
     // this methods returns -1 if there no recipes with this ID in the array
     const pos: number = this.#favoriteRecipes.findIndex(
