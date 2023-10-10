@@ -144,6 +144,7 @@ class App {
     constructor() {
         _App_favoriteRecipes.set(this, []);
         _App_resultsRecipe.set(this, []);
+        this.size = 15;
         btnSearch === null || btnSearch === void 0 ? void 0 : btnSearch.addEventListener("click", this._fetchRecipes.bind(this));
         this._getLocalStorage();
     }
@@ -175,7 +176,7 @@ class App {
         return __awaiter(this, void 0, void 0, function* () {
             const APIKey = "apiKey=ccc74ec2303943b19a3fd0cf79ebccea";
             const searchSpecifics = this._generateURL();
-            const URL = `https://api.spoonacular.com/recipes/complexSearch?${searchSpecifics}instructionsRequired=true&addRecipeInformation=true&number=1&fillIngredients=true&${APIKey}`;
+            const URL = `https://api.spoonacular.com/recipes/complexSearch?${searchSpecifics}instructionsRequired=true&addRecipeInformation=true&number=${this.size}&fillIngredients=true&${APIKey}`;
             try {
                 const response = yield fetch(URL);
                 const data = yield response.json();
@@ -185,11 +186,7 @@ class App {
                 // empty grid if a new search starts
                 resultsGrid.innerHTML = "";
                 // fill then array with recipe objects, once it's filled you display each recipe card in the grid
-                this._fillResultsArray(results).then(() => {
-                    __classPrivateFieldGet(this, _App_resultsRecipe, "f").forEach((recipe) => {
-                        this._displayRecipeCard(recipe);
-                    });
-                });
+                this._fillResultsArray(results);
             }
             catch (error) {
                 let errorMessage = "Unknown error";
@@ -200,83 +197,76 @@ class App {
         });
     }
     _fillResultsArray(results) {
-        return new Promise((resolve) => {
-            results.forEach((recipe) => {
-                this._createRecipe(recipe);
-            });
-            resolve;
-        });
+        for (const recipe of results) {
+            this._createRecipe(recipe);
+        }
     }
     _createRecipe(recipeObject) {
         return __awaiter(this, void 0, void 0, function* () {
-            return new Promise((resolve) => __awaiter(this, void 0, void 0, function* () {
-                const imgOriginalURL = yield fetch(recipeObject.image);
-                const imgBlob = yield imgOriginalURL.blob();
-                const imgFile = yield this._generateImgBase64(imgBlob);
-                const arrIngredients = [];
-                // we format the ingredient object getting only the values we need and having an easier way to fetch them
-                recipeObject.extendedIngredients.forEach((ingr) => {
-                    const newIngredient = {
-                        name: ingr.nameClean,
-                        amount: ingr.measures.metric.amount,
-                        unit: ingr.measures.metric.unitLong,
-                    };
-                    arrIngredients.push(newIngredient);
-                });
-                // for some reason the API has two kind of steps attribute, one is nested in analyzedInstructions, the other is not
-                const arrSteps = [];
-                if (recipeObject.analyzedInstructions.steps != undefined) {
-                    recipeObject.analyzedInstructions.forEach((step) => {
-                        const newStep = {
-                            num: Number(step.number),
-                            procedure: step.step,
-                        };
-                        arrSteps.push(newStep);
-                    });
-                }
-                else {
-                    recipeObject.analyzedInstructions[0].steps.forEach((step) => {
-                        const newStep = {
-                            num: Number(step.number),
-                            procedure: step.step,
-                        };
-                        arrSteps.push(newStep);
-                    });
-                }
-                const recipe = {
-                    id: recipeObject.id,
-                    img: imgFile.explicitOriginalTarget.result,
-                    summary: recipeObject.summary,
-                    name: recipeObject.title,
-                    time: recipeObject.readyInMinutes,
-                    ingredients: arrIngredients,
-                    steps: arrSteps,
+            const imgOriginalURL = yield fetch(recipeObject.image);
+            const imgBlob = yield imgOriginalURL.blob();
+            const imgFile = yield this._generateImgBase64(imgBlob);
+            const arrIngredients = [];
+            // we format the ingredient object getting only the values we need and having an easier way to fetch them
+            recipeObject.extendedIngredients.forEach((ingr) => {
+                const newIngredient = {
+                    name: ingr.nameClean,
+                    amount: ingr.measures.metric.amount,
+                    unit: ingr.measures.metric.unitLong,
                 };
-                // we push here so we don't have to have displaying and creation all in one function
-                __classPrivateFieldGet(this, _App_resultsRecipe, "f").push(recipe);
-                resolve;
-            }));
+                arrIngredients.push(newIngredient);
+            });
+            // for some reason the API has two kind of steps attribute, one is nested in analyzedInstructions, the other is not
+            const arrSteps = [];
+            if (recipeObject.analyzedInstructions.steps != undefined) {
+                recipeObject.analyzedInstructions.forEach((step) => {
+                    const newStep = {
+                        num: Number(step.number),
+                        procedure: step.step,
+                    };
+                    arrSteps.push(newStep);
+                });
+            }
+            else {
+                recipeObject.analyzedInstructions[0].steps.forEach((step) => {
+                    const newStep = {
+                        num: Number(step.number),
+                        procedure: step.step,
+                    };
+                    arrSteps.push(newStep);
+                });
+            }
+            const recipe = {
+                id: recipeObject.id,
+                img: imgFile.explicitOriginalTarget.result,
+                summary: recipeObject.summary,
+                name: recipeObject.title,
+                time: recipeObject.readyInMinutes,
+                ingredients: arrIngredients,
+                steps: arrSteps,
+            };
+            // we push here so we don't have to have displaying and creation all in one function
+            __classPrivateFieldGet(this, _App_resultsRecipe, "f").unshift(recipe);
+            this._displayRecipeCard(__classPrivateFieldGet(this, _App_resultsRecipe, "f")[0]);
         });
     }
     _displayRecipeCard(recipe) {
         var _a;
-        return __awaiter(this, void 0, void 0, function* () {
-            console.log(`got into displayRecipeCard`);
-            const recipeCard = `
-    <div data-id="${recipe.id}"
-          class="recipe-card max-w-sm bg-custom-crimson rounded-lg w-[230px] h-[360px] relative border-2 border-custom-crimson hover:cursor-pointer shadow-recipeCard hover:-translate-y-1 hover:shadow-recipeCardHigher transition-all duration-150"
-        >
-          <svg
-            class="recipe-favorite_btn absolute top-[10px] right-[10px] h-[40px] hover:cursor-pointer"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 256 256"
-          >
+        const recipeCard = `
+      <div data-id="${recipe.id}"
+      class="recipe-card max-w-sm bg-custom-crimson rounded-lg w-[230px] h-[360px] relative border-2 border-custom-crimson hover:cursor-pointer shadow-recipeCard hover:-translate-y-1 hover:shadow-recipeCardHigher transition-all duration-150"
+      >
+      <svg
+      class="recipe-favorite_btn absolute top-[10px] right-[10px] h-[40px] hover:cursor-pointer"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 256 256"
+      >
             <rect width="256" height="256" fill="none" />
             <path
               d="M135.34,28.9l23.23,55.36a8,8,0,0,0,6.67,4.88l59.46,5.14a8,8,0,0,1,4.54,14.07L184.13,147.7a8.08,8.08,0,0,0-2.54,7.89l13.52,58.54a8,8,0,0,1-11.89,8.69l-51.1-31a7.93,7.93,0,0,0-8.24,0l-51.1,31a8,8,0,0,1-11.89-8.69l13.52-58.54a8.08,8.08,0,0,0-2.54-7.89L26.76,108.35A8,8,0,0,1,31.3,94.28l59.46-5.14a8,8,0,0,0,6.67-4.88L120.66,28.9A8,8,0,0,1,135.34,28.9Z"
               class="recipe-favorite_btn-inside transition-all duration-300 ${this._alreadyFavorited(recipe)
-                ? "fill-custom-yellow"
-                : "hover:fill-custom-lightYellow"} shadow-csu"
+            ? "fill-custom-yellow"
+            : "hover:fill-custom-lightYellow"} shadow-csu"
               fill="#DEE2E3"
               stroke="#000"
               stroke-linecap="round"
@@ -295,7 +285,7 @@ class App {
             <h5
               class="recipe-name mb-2 text-xl font-bold tracking-tight text-[#fff]"
             >
-              ${recipe.name}
+              ${recipe.name.slice(0, 50)}${recipe.name.length > 50 ? "..." : ""}
             </h5>
 
             <p
@@ -305,22 +295,12 @@ class App {
             </p>
           </div>
         </div>`;
-            resultsGrid === null || resultsGrid === void 0 ? void 0 : resultsGrid.insertAdjacentHTML("afterbegin", recipeCard);
-            (_a = document.querySelector(".recipe-card")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", (e) => {
-                if (!this._colorFavorite.call(this, recipe, e)) {
-                    this._fillRecipeWindow(recipe);
-                    toggleWindow();
-                }
+        resultsGrid === null || resultsGrid === void 0 ? void 0 : resultsGrid.insertAdjacentHTML("afterbegin", recipeCard);
+        (_a = document.querySelector(".recipe-card")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", (e) => {
+            if (!this._colorFavorite.call(this, recipe, e)) {
+                this._fillRecipeWindow(recipe);
+                toggleWindow();
             }
-            // if (!(e.target instanceof Element)) return;
-            // // when the favorite button is clicked, we don't open the recipe full window
-            // if (e.target.classList.contains("recipe-favorite_btn-inside")) {
-            //   this._toggleToFavorites(recipe);
-            //   e.target.classList.toggle("fill-custom-yellow");
-            //   e.target.classList.toggle("hover:fill-custom-lightYellow");
-            //   return;
-            // }
-            );
         });
     }
     _displayFavoriteCard(recipe) {
@@ -388,7 +368,7 @@ class App {
             </svg>
 
             <img
-              class="recipe-image-favorite rounded-t-lg object-cover h-[124px] w-[124px]"
+              class="recipe-image-favorite rounded-t-lg object-cover w-[124px]"
               src="${recipe.img}"
               alt=""
             />
@@ -550,7 +530,7 @@ class App {
                 stroke-width="16"
               />
             </svg>
-            &nbsp;&nbsp; <span class="cook-time"> 15 minutes </span>&nbsp;
+            &nbsp;&nbsp; <span class="cook-time"> ${recipe.time} minutes </span>&nbsp;
             cooking time
           </p>
           <h2 class="text-2xl my-3 text-custom-elegantGreen">Ingredients</h2>
