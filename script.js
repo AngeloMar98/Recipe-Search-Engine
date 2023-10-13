@@ -307,7 +307,7 @@ class App {
         var _a;
         const favoriteCard = `<div
             data-id="${recipe.id}"
-            class="recipe-card-favorite max-w-sm bg-custom-crimson rounded-lg w-full h-[140px] relative flex flex-row bg-[url(images/favorite_bg.png)] bg-cover "
+            class="recipe-card-favorite max-w-sm bg-custom-crimson rounded-lg w-full h-[150px] relative flex flex-row bg-[url(images/favorite_bg.png)] bg-cover "
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -368,7 +368,7 @@ class App {
             </svg>
 
             <img
-              class="recipe-image-favorite rounded-l-lg object-cover  w-[124px] h-[144px]"
+              class="recipe-image-favorite rounded-l-lg object-cover  w-[124px] h-[150px]"
               src="${recipe.img}"
               alt=""
             />
