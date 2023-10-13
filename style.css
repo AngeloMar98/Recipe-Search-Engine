@@ -893,6 +893,10 @@ video {
   height: 124px;
 }
 
+.h-\[144px\] {
+  height: 144px;
+}
+
 .max-h-\[140px\] {
   max-height: 140px;
 }
@@ -1542,6 +1546,10 @@ video {
 
 .leading-9 {
   line-height: 2.25rem;
+}
+
+.leading-5 {
+  line-height: 1.25rem;
 }
 
 .tracking-tight {

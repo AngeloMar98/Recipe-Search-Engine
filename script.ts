@@ -436,13 +436,13 @@ class App {
             </svg>
 
             <img
-              class="recipe-image-favorite rounded-l-lg object-cover  w-[124px] h-[124px]"
+              class="recipe-image-favorite rounded-l-lg object-cover  w-[124px] h-[144px]"
               src="${recipe.img}"
               alt=""
             />
 
             <h5
-              class="recipe-name-favorite p-4 mb-2 text-lg font-bold tracking-tight text-[#fff]"
+              class="recipe-name-favorite px-4 py-2 leading-5 mb-2 text-lg font-bold tracking-tight text-[#fff]"
             >
               ${recipe.name}
             </h5>
