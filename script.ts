@@ -375,7 +375,7 @@ class App {
   _displayFavoriteCard(recipe: Recipe) {
     const favoriteCard: string = `<div
             data-id="${recipe.id}"
-            class="recipe-card-favorite max-w-sm bg-custom-crimson rounded-lg w-full h-[140px] relative flex flex-row bg-[url(images/favorite_bg.png)] bg-cover "
+            class="recipe-card-favorite max-w-sm bg-custom-crimson rounded-lg w-full h-[150px] relative flex flex-row bg-[url(images/favorite_bg.png)] bg-cover "
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
