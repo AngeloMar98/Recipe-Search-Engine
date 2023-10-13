@@ -38,7 +38,6 @@
   }
 
   .favorite-scrollbar::-webkit-scrollbar-thumb {
-    background: #dee2e3;
     max-height: 30px;
     border-radius: 100vh;
     transition: all 200ms;
