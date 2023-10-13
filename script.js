@@ -176,6 +176,7 @@ class App {
         return __awaiter(this, void 0, void 0, function* () {
             const APIKey = "apiKey=ccc74ec2303943b19a3fd0cf79ebccea";
             const searchSpecifics = this._generateURL();
+          console.log(searchSpecifics);
             const URL = `https://api.spoonacular.com/recipes/complexSearch?${searchSpecifics}instructionsRequired=true&addRecipeInformation=true&number=${this.size}&fillIngredients=true&${APIKey}`;
             try {
                 const response = yield fetch(URL);
@@ -200,6 +201,7 @@ class App {
         for (const recipe of results) {
             this._createRecipe(recipe);
         }
+      console.log(this._App_resultsRecipe);
     }
     _createRecipe(recipeObject) {
         return __awaiter(this, void 0, void 0, function* () {
