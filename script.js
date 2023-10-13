@@ -163,12 +163,7 @@ class App {
         const diet = returnMultipleChoices("diet", filterDiet);
         const intolerances = returnMultipleChoices("intol", filterIntol);
         const ingredients = returnMultipleChoices("ingredients", filterIngredients);
-        return `${titleMatch ? "titleMatch=" + titleMatch + "&" : ""}
-    ${cuisine ? "cuisine=" + cuisine + "&" : ""}
-    ${course ? "type=" + course + "&" : ""}
-    ${diet ? "diet=" + diet : ""}
-    ${intolerances ? "intolerances=" + intolerances : ""}
-    ${ingredients ? "includeIngredients=" + ingredients : ""}`;
+        return `${titleMatch ? "titleMatch=" + titleMatch + "&" : ""}${cuisine ? "cuisine=" + cuisine + "&" : ""}${course ? "type=" + course + "&" : ""}${diet ? "diet=" + diet : ""}${intolerances ? "intolerances=" + intolerances : ""}${ingredients ? "includeIngredients=" + ingredients : ""}`;
     }
     _generateImgBase64(imgBlob) {
         const reader = new FileReader();
