@@ -35,7 +35,7 @@
 
   .favorite-scrollbar::-webkit-scrollbar-track {
     border-radius: 100vh;
-    background-color: transparent;
+    /* background-color: transparent; */
   }
 
   .favorite-scrollbar::-webkit-scrollbar-thumb {
