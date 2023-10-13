@@ -206,6 +206,7 @@ class App {
         for (const recipe of results) {
             this._createRecipe(recipe);
         }
+      console.log(this._App_resultsRecipe);
     }
     _createRecipe(recipeObject) {
         return __awaiter(this, void 0, void 0, function* () {
