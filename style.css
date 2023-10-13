@@ -1702,7 +1702,6 @@ video {
 
 .scrollbar::-webkit-scrollbar-thumb:hover {
   background: #5a952d;
-  background: #dee2e352;
 }
 
 .favorite-scrollbar::-webkit-scrollbar {
