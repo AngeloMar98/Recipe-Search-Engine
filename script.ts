@@ -301,7 +301,7 @@ class App {
 
     const recipe: Recipe = {
       id: recipeObject.id,
-      img: imgFile.explicitOriginalTarget.result,
+      img: imgFile.srcElement.result,
       summary: recipeObject.summary,
       name: recipeObject.title,
       time: recipeObject.readyInMinutes,
