@@ -442,7 +442,7 @@ class App {
             />
 
             <h5
-              class="recipe-name-favorite px-4 py-2 leading-5 mb-2 text-lg font-bold tracking-tight text-[#fff]"
+              class="recipe-name-favorite p-4 5 mb-2 text-lg font-bold tracking-tight text-[#fff]"
             >
               ${recipe.name}
             </h5>
