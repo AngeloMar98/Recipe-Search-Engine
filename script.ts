@@ -261,9 +261,8 @@ class App {
   async _createRecipe(recipeObject: Keyable) {
     const imgOriginalURL = await fetch(recipeObject.image);
     const imgBlob = await imgOriginalURL.blob();
-
     const imgFile: any = await this._generateImgBase64(imgBlob);
-    console.dir(imgFile);
+
     const arrIngredients: Ingredient[] = [];
 
     // we format the ingredient object getting only the values we need and having an easier way to fetch them

@@ -206,7 +206,6 @@ class App {
             const imgOriginalURL = yield fetch(recipeObject.image);
             const imgBlob = yield imgOriginalURL.blob();
             const imgFile = yield this._generateImgBase64(imgBlob);
-            console.dir(imgFile);
             const arrIngredients = [];
             // we format the ingredient object getting only the values we need and having an easier way to fetch them
             recipeObject.extendedIngredients.forEach((ingr) => {
