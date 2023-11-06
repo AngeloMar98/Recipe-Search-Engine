@@ -149,7 +149,9 @@ class App {
         searchField === null || searchField === void 0 ? void 0 : searchField.addEventListener("keypress", (e) => {
            
             if (e.key === "Enter")
-                this._fetchRecipes();
+            {e.preventDefault();
+             this._fetchRecipes();
+            }
         });
         this._getLocalStorage();
     }
