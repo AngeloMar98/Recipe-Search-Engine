@@ -147,7 +147,7 @@ class App {
         this.size = 10;
         btnSearch === null || btnSearch === void 0 ? void 0 : btnSearch.addEventListener("click", this._fetchRecipes.bind(this));
         searchField === null || searchField === void 0 ? void 0 : searchField.addEventListener("keypress", (e) => {
-            e.preventDefault();
+           
             if (e.key === "Enter")
                 this._fetchRecipes();
         });
